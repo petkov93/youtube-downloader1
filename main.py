@@ -6,7 +6,7 @@ from time import strftime
 from PIL import Image, ImageTk
 from dadjokes import Dadjoke
 from right_click_menu import show_context_menu, create_context_menu
-from yt2mp3 import *
+from youtube_to_mp3 import *
 
 BG = 'deep sky blue'
 joke_window = None
