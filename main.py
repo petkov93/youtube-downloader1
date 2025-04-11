@@ -15,6 +15,7 @@ joke_window = None
 def resource_path(relative_path):
     """ Returns the path dynamically """
     if hasattr(sys, '_MEIPASS'):
+        # noinspection PyProtectedMember
         return os.path.join(sys._MEIPASS, relative_path)
     return os.path.join(os.path.abspath("."), relative_path)
 
@@ -94,9 +95,10 @@ info_label = tk.Label(
 info_label.grid(column=0, row=4, rowspan=3, padx=20, pady=10, sticky='ew')
 
 
-def update_song_label(title):
+def update_song_label(info):
     """ Func to update the status label """
-    title_var.set(' ✅ Download complete! ✅\n' + '--' * 50 + f'\n{title}')
+    # title_var.set(' ✅ Download complete! ✅\n' + '--' * 50 + f'\n{title}')
+    title_var.set(info)
 
 
 def open_folder():
@@ -179,3 +181,5 @@ get_joke_button.grid(column=0, row=9, padx=20, pady=15)
 update_time()
 
 main_window.mainloop()
+
+
