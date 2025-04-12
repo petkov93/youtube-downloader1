@@ -3,20 +3,27 @@ import os
 
 # if you don't have ffmpeg.exe, you need to install it and provide the correct path.
 # Official releases: https://github.com/BtbN/FFmpeg-Builds/releases
+
 FFMPEG_PATH = r"C:\ffmpeg\ffmpeg-2025-02-02-git-957eb2323a-full_build\bin\ffmpeg.exe"
 
 DOWNLOAD_DIR = os.path.join(os.path.expanduser('~'), 'Desktop', 'YouTube')
 
 
 def youtube_downloader(url, callback=None):
-    """ func to download YouTube songs from url/song name (YouTube search) """
+    """
+    function to download YouTube songs from url/song name (YouTube search)
+    if you put song name, it searches YouTube and returns the first result.
+    Then it converts the downloaded .webm/mp4 file to mp3.
+    Final mp3 will be saved on Desktop, folder 'YouTube'
+    """
 
     def download_progress_hook(data):
+        """Function that returns the download info (%) if callback."""
         name = os.path.basename(data['filename'])
         if data['status'] == 'downloading':
             percent = data.get('_percent_str').strip()
             if callback:
-                download_str = f"\rDownloading >> {percent} >> {name}"
+                download_str = f"Downloading >> {percent} >>\n{name}"
                 callback(download_str)
         elif data['status'] == 'finished':
             if callback:
@@ -24,10 +31,11 @@ def youtube_downloader(url, callback=None):
                 callback(finished_str)
         elif data['status'] == 'processing':
             if callback:
-                processing_str = f"\nConverting >>\n{data.get('postprocessor')}"
+                processing_str = f"Converting >>\n{data.get('postprocessor')}"
                 callback(processing_str)
 
     def postprocessing_hook(data):
+        """Function that returns the conversion status if callback."""
         if data['status'] == 'finished':
             information = data.get('info_dict', {})
             filename = os.path.basename(information.get('filepath') or
@@ -37,6 +45,7 @@ def youtube_downloader(url, callback=None):
                 postprocessing_finished = f"Converting finished ! >>\n{filename.strip('.mp3')}"
                 callback(postprocessing_finished)
 
+    # options to be passed to the yt_dlp downloader/postprocessor
     ydl_opts = {
         'progress_hooks': [download_progress_hook],
         'postprocessor_hooks': [postprocessing_hook],
