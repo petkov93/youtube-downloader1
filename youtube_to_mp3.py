@@ -5,7 +5,6 @@ import os
 # Official releases: https://github.com/BtbN/FFmpeg-Builds/releases
 
 FFMPEG_PATH = r"C:\ffmpeg\ffmpeg-2025-02-02-git-957eb2323a-full_build\bin\ffmpeg.exe"
-
 DOWNLOAD_DIR = os.path.join(os.path.expanduser('~'), 'Desktop', 'YouTube')
 
 
@@ -18,7 +17,7 @@ def youtube_downloader(url, callback=None):
     """
 
     def download_progress_hook(data):
-        """Function that returns the download info (%) if callback."""
+        """Function that returns the download info (%) on callback."""
         name = os.path.basename(data['filename'])
         if data['status'] == 'downloading':
             percent = data.get('_percent_str').strip()
@@ -35,7 +34,7 @@ def youtube_downloader(url, callback=None):
                 callback(processing_str)
 
     def postprocessing_hook(data):
-        """Function that returns the conversion status if callback."""
+        """Function that returns the conversion status on callback."""
         if data['status'] == 'finished':
             information = data.get('info_dict', {})
             filename = os.path.basename(information.get('filepath') or
@@ -50,14 +49,14 @@ def youtube_downloader(url, callback=None):
         'progress_hooks': [download_progress_hook],
         'postprocessor_hooks': [postprocessing_hook],
         'format': 'bestaudio/best',
-        'outtmpl': os.path.join(DOWNLOAD_DIR, '%(title)s.%(ext)s'),
+        'outtmpl': os.path.join(DOWNLOAD_DIR, '%(title)s.%(ext)s'), # file name
         'postprocessors': [{
             'key': 'FFmpegExtractAudio',
-            'preferredcodec': 'mp3',
+            'preferredcodec': 'mp3', # output format -> mp3
             'preferredquality': '192',
         }],
         'ffmpeg_location': FFMPEG_PATH,
-        'noplaylist': True,
+        'noplaylist': True,  # downloads the first song if its a playlist
         'default_search': 'ytsearch',
         'quiet': True,
         'verbose': False,

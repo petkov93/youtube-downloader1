@@ -1,4 +1,3 @@
-import os
 import sys
 import threading
 import tkinter as tk
@@ -12,6 +11,7 @@ BG = 'deep sky blue'
 INFO_LBL_FONT = ("Comic Sans MS", 15, 'italic')
 WELCOME_LBL_FONT = ('System', 30, ['bold'])
 PADDING = 10
+
 joke_window = None
 
 
@@ -29,7 +29,7 @@ def start_download():
     yt_input.delete(0, tk.END)
     # if invalid input -> do nothing
     if url is None or url == '' or len(url) < 5:
-        title_var.set('Invalid input! Try again..\n(Input must be longer than 5 symbols!')
+        title_var.set('Invalid input! Try again..\n(Input must be longer than 5 symbols!)')
         return
     else:
         if url.startswith('https'):
