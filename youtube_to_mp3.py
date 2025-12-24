@@ -45,21 +45,26 @@ def youtube_downloader(url, callback=None):
                 callback(postprocessing_finished)
 
     # options to be passed to the yt_dlp downloader/postprocessor
-    ydl_opts = {
-        'progress_hooks': [download_progress_hook],
-        'postprocessor_hooks': [postprocessing_hook],
-        'format': 'bestaudio/best',
-        'outtmpl': os.path.join(DOWNLOAD_DIR, '%(title)s.%(ext)s'), # file name
-        'postprocessors': [{
-            'key': 'FFmpegExtractAudio',
-            'preferredcodec': 'mp3', # output format -> mp3
-            'preferredquality': '192',
+    ydl_opts: dict = {
+        "progress_hooks": [download_progress_hook],
+        "postprocessor_hooks": [postprocessing_hook],
+        "format": "bestaudio/best",
+        "extractor_args": {
+            "youtube": {
+                "player_client": ["android"]
+            }
+        },
+        "outtmpl": os.path.join(DOWNLOAD_DIR, "%(title)s.%(ext)s"), # file name
+        "postprocessors": [{
+            "key": "FFmpegExtractAudio",
+            "preferredcodec": "mp3", # output format -> mp3
+            "preferredquality": "192",
         }],
-        'ffmpeg_location': FFMPEG_PATH,
-        'noplaylist': True,  # downloads the first song if its a playlist
-        'default_search': 'ytsearch',
-        'quiet': True,
-        'verbose': False,
+        "ffmpeg_location": FFMPEG_PATH,
+        "noplaylist": True,  # downloads the first song if it's a playlist
+        "default_search": "ytsearch",
+        "quiet": True,
+        "verbose": False,
     }
     with yt_dlp.YoutubeDL(ydl_opts) as ydl:
         info = ydl.extract_info(url, download=True)
