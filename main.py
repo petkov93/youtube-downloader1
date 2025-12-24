@@ -42,8 +42,6 @@ def start_download():
 
 
 def update_song_label(info):
-    """ Func to update the status label """
-    # title_var.set(' ✅ Download complete! ✅\n' + '--' * 50 + f'\n{title}')
     title_var.set(info)
 
 
