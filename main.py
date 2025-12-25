@@ -147,8 +147,7 @@ yt_button = tk.Button(
 yt_button.grid(column=0, row=3, padx=PADDING, pady=PADDING, sticky='NSEW')
 
 # Download status label
-title_var = tk.StringVar()
-title_var.set('Downloaded song will appear below...')
+title_var = tk.StringVar(value='Downloaded song will appear below...')
 info_label = tk.Label(
     textvariable=title_var,
     font=INFO_LBL_FONT,
