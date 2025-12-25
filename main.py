@@ -131,6 +131,7 @@ yt_input.focus_set()
 # handles the right click menu
 context_menu = create_context_menu(main_window, yt_input)
 yt_input.bind("<Button-3>", lambda event: show_context_menu(event, context_menu))
+yt_input.bind("<Return>", lambda event: start_download())
 
 # YT Download button
 yt_button = tk.Button(
