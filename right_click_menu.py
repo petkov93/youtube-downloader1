@@ -4,6 +4,7 @@ import tkinter as tk
 # Create the context menu
 def create_context_menu(window, yt_input):
     context_menu = tk.Menu(window, tearoff=0)
+    context_menu.add_command(label="Select all", command=lambda: yt_input.event_generate("<Control-a>"))
     context_menu.add_command(label='Clear', command=lambda: yt_input.delete(0, tk.END))
     context_menu.add_command(label="Cut", command=lambda: yt_input.event_generate("<Control-x>"))
     context_menu.add_command(label="Copy", command=lambda: yt_input.event_generate("<Control-c>"))
