@@ -68,13 +68,3 @@ def youtube_downloader(url, callback=None):
     }
     with yt_dlp.YoutubeDL(ydl_opts) as ydl:
         info = ydl.extract_info(url, download=True)
-
-        # print(info)
-        # if 'entries' in info:
-        #     first_entry = info['entries'][0]  # Get the first search result
-        #     title = first_entry.get('title')  # Extract the title of the first result
-        # else:
-        #     title = info.get('title')  # Extract the title directly for direct links
-
-    # if callback:
-    #     callback(title)
