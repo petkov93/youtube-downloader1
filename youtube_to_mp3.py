@@ -49,11 +49,10 @@ def youtube_downloader(url, callback=None):
         "progress_hooks": [download_progress_hook],
         "postprocessor_hooks": [postprocessing_hook],
         "format": "bestaudio/best",
-        "extractor_args": {
-            "youtube": {
-                "player_client": ["android"]
-            }
-        },
+        # Using android/ios clients doesn't work  as expected at the moment
+        # "extractor_args": {
+        #     "youtube": {
+        #         # "player_client": ["android", "ios"]}},
         "outtmpl": os.path.join(DOWNLOAD_DIR, "%(title)s.%(ext)s"), # file name
         "postprocessors": [{
             "key": "FFmpegExtractAudio",
